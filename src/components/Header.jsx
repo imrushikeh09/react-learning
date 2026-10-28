@@ -1,4 +1,7 @@
-function Header() {
+function Header({
+  title = "Assignment 1: My React Application",
+  subtitle = "Header Component"
+} = {}) {
     return (
         <header style={{
             backgroundColor: '#2563eb',
@@ -6,10 +9,10 @@ function Header() {
             padding: '20px',
             textAlign: 'center'
         }}>
-            <h1>Assignment 1: My React Application</h1>
-            <p>Header Component</p>
+            <h1>{title}</h1>
+            <p>{subtitle}</p>
         </header>
-    )
+    );
 }
 
 export default Header;
