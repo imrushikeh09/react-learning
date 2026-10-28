@@ -10,17 +10,41 @@ function AssignmentShowMyName() {
     return localStorage.getItem('assignment2_text') || '';
   });
 
-  // Keep both React state and localStorage in sync
+  const [statusMessage, setStatusMessage] = useState(null);
+
   const handleTextChange = (newText) => {
     setTypedText(newText);
-    localStorage.setItem('assignment2_text', newText);
+    if (statusMessage) setStatusMessage(null);
+  };
+
+  const handleSave = () => {
+    localStorage.setItem('assignment2_text', typedText);
+    setStatusMessage({
+      type: 'success',
+      text: '✓ Saved to local storage successfully!'
+    });
+    setTimeout(() => {
+      setStatusMessage(null);
+    }, 2500);
+  };
+
+  const handleClear = () => {
+    setTypedText('');
+    localStorage.removeItem('assignment2_text');
+    setStatusMessage({
+      type: 'info',
+      text: 'Cleared input and local storage!'
+    });
+    setTimeout(() => {
+      setStatusMessage(null);
+    }, 2500);
   };
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: '100%' }}>
       <Header
         title="Assignment 2: Show My Name"
-        subtitle="Dynamic state, props, and localStorage persistence"
+        subtitle="Dynamic state, props, Save button, and localStorage persistence"
       />
       <main
         style={{
@@ -33,7 +57,13 @@ function AssignmentShowMyName() {
           textAlign: 'left'
         }}
       >
-        <InputBox value={typedText} onTextChange={handleTextChange} />
+        <InputBox
+          value={typedText}
+          onTextChange={handleTextChange}
+          onSave={handleSave}
+          onClear={handleClear}
+          statusMessage={statusMessage}
+        />
         <TextViewer text={typedText} />
       </main>
       <Footer />

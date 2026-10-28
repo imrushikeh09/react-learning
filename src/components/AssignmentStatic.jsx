@@ -15,3 +15,4 @@ function AssignmentStatic() {
 }
 
 export default AssignmentStatic;
+

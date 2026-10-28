@@ -1,6 +1,16 @@
-function InputBox({ value, onTextChange }) {
+function InputBox({ value, onTextChange, onSave, onClear, statusMessage }) {
   const handleClear = () => {
-    onTextChange('');
+    if (onClear) {
+      onClear();
+    } else {
+      onTextChange('');
+    }
+  };
+
+  const handleSave = () => {
+    if (onSave) {
+      onSave();
+    }
   };
 
   return (
@@ -35,6 +45,22 @@ function InputBox({ value, onTextChange }) {
         />
         <button
           type="button"
+          onClick={handleSave}
+          style={{
+            padding: '12px 20px',
+            fontSize: '14px',
+            fontWeight: '600',
+            color: '#ffffff',
+            backgroundColor: '#10b981',
+            border: 'none',
+            borderRadius: '6px',
+            cursor: 'pointer'
+          }}
+        >
+          Save
+        </button>
+        <button
+          type="button"
           onClick={handleClear}
           style={{
             padding: '12px 20px',
@@ -50,6 +76,18 @@ function InputBox({ value, onTextChange }) {
           Clear
         </button>
       </div>
+      {statusMessage && (
+        <div
+          style={{
+            marginTop: '8px',
+            fontSize: '14px',
+            color: statusMessage.type === 'error' ? '#ef4444' : '#10b981',
+            fontWeight: '500'
+          }}
+        >
+          {statusMessage.text}
+        </div>
+      )}
     </div>
   );
 }
