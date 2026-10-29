@@ -15,3 +15,4 @@ export const userFormSchema = Yup.object().shape({
     .oneOf(['Owner', 'User', 'Admin'], 'Please select a valid role')
     .required('Role is compulsory')
 });
+
